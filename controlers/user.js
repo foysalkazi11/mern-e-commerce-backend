@@ -79,7 +79,7 @@ module.exports.authencateUser = async (req, res) => {
     if (!token) {
       return res.status(401).json({ message: "authorization denied" });
     }
-    const decoded = jwt.verify(token, "kazi123");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findOne({ email: decoded.userEmail });
     res.status(200).json({
       message: "user still login",

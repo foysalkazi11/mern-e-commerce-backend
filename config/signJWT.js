@@ -6,7 +6,7 @@ const signToken = (email) => {
       userEmail: email
       // exp: Math.floor(Date.now() / 1000) + 60 * 60
     },
-    "kazi123",
+    process.env.JWT_SECRET,
     // process.env.JWT_SECRET,
     { expiresIn: Date.now() + 1000 * 60 * 60 * 24 * 7 }
   );

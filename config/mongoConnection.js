@@ -1,11 +1,10 @@
 const mongoose = require("mongoose");
-
 const dbAltasUrl = process.env.DB_URL;
 const dbLocalUrl = "mongodb://localhost/mern-ecommerce";
-//"mongodb+srv://kazi:B@angla12@cluster0.7zy5v.mongodb.net/mern-ecommerce?retryWrites=true&w=majority"
+
 const mongoDB = async () => {
   try {
-    await mongoose.connect(dbLocalUrl, {
+    await mongoose.connect(dbAltasUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useFindAndModify: false,
