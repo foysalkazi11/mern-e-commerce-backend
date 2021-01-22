@@ -13,7 +13,7 @@ module.exports.registerUser = async (req, res) => {
     if (alredyUser) {
       return res
         .status(401)
-        .json({ message: "These email alredy exist plese another email" });
+        .json({ message: "These email alredy exist plese use another email" });
     }
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = new User({ ...req.body, password: hashPassword });
@@ -63,8 +63,8 @@ module.exports.logoutUser = async (req, res) => {
     res.clearCookie("access_token");
     res.status(200).json({
       isAuthenticated: false,
-      user: { name: "", role: "" },
-      message: "successfully logout"
+      user: null,
+      message: "logout successfully"
     });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -82,7 +82,7 @@ module.exports.authencateUser = async (req, res) => {
     const decoded = jwt.verify(token, "kazi123");
     const user = await User.findOne({ email: decoded.userEmail });
     res.status(200).json({
-      message: "user login successfully",
+      message: "user still login",
       isAuthenticated: true,
       user: { name: user.name, role: user.role }
     });
