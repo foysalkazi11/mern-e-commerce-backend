@@ -18,6 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 
 //route
 app.use("/user", require("./route/user"));
+app.use("/product", require("./route/product"));
 
 app.listen(process.env.PORT || 5000, () => {
   console.log(`start express app at port - 5000`);

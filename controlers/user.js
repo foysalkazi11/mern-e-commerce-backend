@@ -1,9 +1,8 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 const bcrypt = require("bcrypt");
-const signToken = require("../config/signJWT");
+const { signToken } = require("../config/signJWT");
 const cookieOptions = require("../config/cookieOptions");
-const cookieExtractor = require("../config/cookieExtractor");
 
 //register user
 module.exports.registerUser = async (req, res) => {
@@ -24,7 +23,7 @@ module.exports.registerUser = async (req, res) => {
     res.status(201).json({
       message: "user added successfully",
       isAuthenticated: true,
-      user: { name: newUser.name, role: newUser.role }
+      user: { name: newUser.name, email: newUser.email, role: newUser.role }
     });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -50,7 +49,7 @@ module.exports.loginUser = async (req, res) => {
     res.status(200).json({
       message: "user login successfully",
       isAuthenticated: true,
-      user: { name: findUser.name, role: findUser.role }
+      user: { name: findUser.name, email: findUser.email, role: findUser.role }
     });
   } catch (error) {
     res.status(400).json({ message: error.message });
@@ -74,17 +73,12 @@ module.exports.logoutUser = async (req, res) => {
 //authecated user
 
 module.exports.authencateUser = async (req, res) => {
-  const token = cookieExtractor(req);
   try {
-    if (!token) {
-      return res.status(401).json({ message: "authorization denied" });
-    }
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const user = await User.findOne({ email: decoded.userEmail });
+    const user = await User.findOne({ email: req.userEmail });
     res.status(200).json({
       message: "user still login",
       isAuthenticated: true,
-      user: { name: user.name, role: user.role }
+      user: { name: user.name, email: user.email, role: user.role }
     });
   } catch (error) {
     res.status(400).json({ message: error.message });

@@ -12,4 +12,12 @@ const signToken = (email) => {
   );
 };
 
-module.exports = signToken;
+const varifyToken = (token) => {
+  if (!token) {
+    return res.status(401).json({ message: "authorization denied" });
+  }
+  const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  return decoded;
+};
+
+module.exports = { signToken, varifyToken };
