@@ -76,7 +76,7 @@ module.exports.authencateUser = async (req, res) => {
   try {
     const user = await User.findOne({ email: req.userEmail });
     res.status(200).json({
-      message: "user still login",
+      message: "",
       isAuthenticated: true,
       user: { name: user.name, email: user.email, role: user.role }
     });
