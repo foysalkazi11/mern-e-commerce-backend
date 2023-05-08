@@ -1,7 +1,7 @@
-const netlifyUrl = "https://your-moments.netlify.app";
+const netlifyUrl = "https://hopeful-goodall-7769f7.netlify.app/";
 const localUrl = "http://localhost:3000";
 const allowCrossDomain = function (req, res, next) {
-  res.header("Access-Control-Allow-Origin", localUrl);
+  res.header("Access-Control-Allow-Origin", netlifyUrl);
   res.header("Access-Control-Allow-Credentials", true);
   res.header("Access-Control-Allow-Methods", "GET,PUT,POST,PATCH,DELETE");
   res.header(
